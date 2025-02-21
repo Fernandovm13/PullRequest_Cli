@@ -1,14 +1,17 @@
 package main
 
 import (
-	infrastructure "weebhook_github/pull_request_webhook"
+	"log"
+
+    infrastructure "weebhook_github/pull_request_webhook"
 
 	"github.com/gin-gonic/gin"
 )
 
 func main() {
+	router := gin.Default()
+	infrastructure.Routes(router)
 
-	Engine := gin.Default()
-
-	infrastructure.Routes(Engine)
+	log.Println("Servidor corriendo en el puerto 8080")
+	router.Run(":8080")
 }
