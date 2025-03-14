@@ -1,0 +1,17 @@
+name: Notificar en Discord cuando se cierra un PR
+
+on:
+  pull_request:
+    types:
+      - closed
+
+jobs:
+  notify_discord:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Enviar mensaje a Discord
+        uses: Ilshidur/action-discord@master
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+        with:
+          args: "📢 ¡Un Pull Request ha sido cerrado! 🎉\n🚀 **Repositorio:** ${{ github.repository }}\n👤 **Autor:** ${{ github.actor }}\n🔗 [Ver PR](${{ github.event.pull_request.html_url }})"
